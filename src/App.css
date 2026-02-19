@@ -1,38 +1,112 @@
-.App {
+/* 기본 리셋 및 전체 배경 */
+.main-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at top left,
+    #2c3e50,
+    #000000
+  ); /* 깊이감 있는 다크 배경 */
+  font-family:
+    "Pretendard",
+    -apple-system,
+    sans-serif;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* 와이드 글래스 카드 */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 80px 100px; /* 내부 여백을 넓게 */
+  width: 80%; /* 화면 너비의 80% 사용 */
+  max-width: 1200px; /* 최대 너비 제한 */
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  color: white;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* 텍스트 스타일 가독성 강화 */
+.icon {
+  font-size: 80px;
+  margin-bottom: 30px;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 {
+  font-size: 4rem; /* 매우 큰 제목 */
+  margin-bottom: 25px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(to right, #fff, #aaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 50px;
+}
+
+.alert-text strong {
+  color: #ff3e3e; /* 경고 느낌의 빨간색 강조 */
+  font-size: 2.2rem;
+  text-decoration: underline;
+}
+
+/* 버튼 그룹 및 스타일 */
+.btn-group {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  gap: 40px; /* 버튼 사이 간격 넓게 */
 }
 
-.App-link {
-  color: #61dafb;
+.btn-primary {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 20px 60px;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-primary:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(255, 0, 0, 0.15);
+  color: #ff4d4d;
+  border: 2px solid #ff4d4d;
+  background: rgba(255, 0, 0, 0.15);
+  position: relative;
+
+  /* 마우스가 버튼 닿기 한참 전부터 도망가게 만드는 투명 방어막 */
+  box-shadow: 0 0 0 100px transparent;
+
+  /* 이동 시간을 아예 없애거나 극단적으로 줄임 */
+  transition: none !important;
+}
+
+/* 마우스가 '아니요' 버튼의 근처(투명 방어막)에만 가도 커서 모양을 숨겨서 조준 방해 */
+.btn-secondary:hover {
+  cursor: none;
 }
