@@ -1,112 +1,156 @@
-/* 기본 리셋 및 전체 배경 */
-.main-container {
-  min-height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(
-    circle at top left,
-    #2c3e50,
-    #000000
-  ); /* 깊이감 있는 다크 배경 */
-  font-family:
-    "Pretendard",
-    -apple-system,
-    sans-serif;
-  overflow: hidden;
+:root {
+  --primary-neon: #00ff41; /* 매트릭스 그린 */
+  --error-neon: #ff003c; /* 강렬한 레드 */
+  --bg-black: #0a0a0a;
+  --text-white: #ffffff;
+}
+
+body,
+html {
   margin: 0;
+  padding: 0;
+  overflow: hidden; /* 스크롤 방지 */
+  background: var(--bg-black);
+  font-family: "Courier New", Courier, monospace;
 }
 
-/* 와이드 글래스 카드 */
-.glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 80px 100px; /* 내부 여백을 넓게 */
-  width: 80%; /* 화면 너비의 80% 사용 */
-  max-width: 1200px; /* 최대 너비 제한 */
-  min-height: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  color: white;
-  text-align: center;
-}
-
-/* 텍스트 스타일 가독성 강화 */
-.icon {
-  font-size: 80px;
-  margin-bottom: 30px;
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
-}
-
-h1 {
-  font-size: 4rem; /* 매우 큰 제목 */
-  margin-bottom: 25px;
-  font-weight: 800;
-  letter-spacing: -1px;
-  background: linear-gradient(to right, #fff, #aaa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-p {
-  font-size: 1.5rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 50px;
-}
-
-.alert-text strong {
-  color: #ff3e3e; /* 경고 느낌의 빨간색 강조 */
-  font-size: 2.2rem;
-  text-decoration: underline;
-}
-
-/* 버튼 그룹 및 스타일 */
-.btn-group {
+.main-wrapper {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px; /* 버튼 사이 간격 넓게 */
-}
-
-.btn-primary {
-  background: #ffffff;
-  color: #000000;
-  border: none;
-  padding: 20px 60px;
-  border-radius: 20px;
-  font-size: 1.5rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.btn-primary:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
-}
-
-.btn-secondary {
-  background: rgba(255, 0, 0, 0.15);
-  color: #ff4d4d;
-  border: 2px solid #ff4d4d;
-  background: rgba(255, 0, 0, 0.15);
+  color: var(--text-white);
   position: relative;
-
-  /* 마우스가 버튼 닿기 한참 전부터 도망가게 만드는 투명 방어막 */
-  box-shadow: 0 0 0 100px transparent;
-
-  /* 이동 시간을 아예 없애거나 극단적으로 줄임 */
-  transition: none !important;
 }
 
-/* 마우스가 '아니요' 버튼의 근처(투명 방어막)에만 가도 커서 모양을 숨겨서 조준 방해 */
-.btn-secondary:hover {
-  cursor: none;
+/* 배경 그리드 효과 */
+.background-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: -1;
+}
+
+/* 첫 화면: 신비로운 느낌 */
+.hero-section {
+  text-align: center;
+  animation: fadeIn 1.5s ease;
+}
+
+.main-title {
+  font-size: 4rem;
+  letter-spacing: 10px;
+  margin: 20px 0;
+  text-shadow: 0 0 20px var(--primary-neon);
+}
+
+.neon-btn {
+  background: transparent;
+  color: var(--primary-neon);
+  border: 2px solid var(--primary-neon);
+  padding: 15px 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--primary-neon);
+  transition: 0.3s;
+}
+
+.neon-btn:hover {
+  background: var(--primary-neon);
+  color: black;
+  box-shadow: 0 0 40px var(--primary-neon);
+}
+
+/* 두 번째 화면: 경고 느낌 */
+.full-screen-alert {
+  width: 90%;
+  max-width: 1000px;
+  background: rgba(20, 20, 20, 0.95);
+  border: 5px solid var(--error-neon);
+  padding: 40px;
+  box-shadow: 0 0 50px rgba(255, 0, 60, 0.3);
+}
+
+.alert-header {
+  font-weight: bold;
+  color: var(--error-neon);
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+.price-tag {
+  font-size: 3.5rem;
+  color: var(--error-neon);
+  margin-bottom: 10px;
+}
+
+.truth-textarea {
+  width: 100%;
+  height: 120px;
+  background: #1a1a1a;
+  border: 1px solid var(--primary-neon);
+  color: var(--primary-neon);
+  padding: 15px;
+  font-size: 1.2rem;
+  margin-top: 15px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.action-area {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.confirm-btn {
+  background: var(--primary-neon);
+  color: black;
+  border: none;
+  padding: 20px 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.confirm-btn:disabled {
+  background: #333;
+  color: #666;
+}
+
+.escape-btn {
+  background: var(--error-neon);
+  color: white;
+  padding: 20px 40px;
+  border: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

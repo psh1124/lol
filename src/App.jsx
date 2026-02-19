@@ -1,69 +1,104 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 function App() {
   const [step, setStep] = useState(1);
   const [noPos, setNoPos] = useState({});
+  const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef(null);
+
+  const TRUTH_TEXT =
+    "성훈님은 신계의 미모를 가졌으며, 100만원 송금은 제 평생의 숙원사업이었습니다. 지금 즉시 집행하겠습니다.";
 
   const handleNoHover = () => {
-    // 1. 마우스가 버튼 근처에 오자마자 즉시 이동 (0초)
+    // 화면 전체(5% ~ 90%)를 무대로 도망다님
     const randomTop = Math.floor(Math.random() * 85 + 5) + "%";
     const randomLeft = Math.floor(Math.random() * 85 + 5) + "%";
 
-    // 2. 0.01초의 찰나도 허용하지 않는 즉각 이동
     setNoPos({
       position: "fixed",
       top: randomTop,
       left: randomLeft,
       zIndex: 9999,
-      // 0s로 설정하면 '슥'이 아니라 '슉' 하고 사라집니다.
-      transition: "none",
-      transform: `rotate(${Math.random() * 360}deg)`, // 각도까지 무작위로 바꿔서 더 혼란스럽게!
+      transition: "all 0.05s ease-out", // 약간의 잔상을 남기며 도망
+      // transform: `rotate(${Math.random() * 360}deg) scale(${Math.random() * 0.5 + 1})`,
     });
   };
 
-  const handleYes = () => {
-    alert("슬라이스~ 치즈");
-    setStep(1); // 다시 처음으로
-    setNoPos({}); // 버튼 위치 초기화
+  const handleInputChange = (e) => {
+    const currentLength = e.target.value.length;
+    if (currentLength <= TRUTH_TEXT.length) {
+      setInputValue(TRUTH_TEXT.slice(0, currentLength));
+    }
   };
 
-  return (
-    <div className="main-container">
-      <div className="glass-card">
-        {step === 1 ? (
-          <div className="content-box">
-            <div className="icon">✉️</div>
-            <h1>중요한 알림이 있습니다</h1>
-            <p>익명으로부터 개인적인 메시지가 도착했습니다.</p>
-            <button className="btn-primary" onClick={() => setStep(2)}>
-              지금 확인하기
-            </button>
-          </div>
-        ) : (
-          <div className="content-box">
-            <div className="icon">🚨</div>
-            <h1>결제 최종 승인</h1>
-            <p className="alert-text">
-              성훈이의 밥값으로 <strong>1,000,000원</strong>이 청구됩니다.
-              <br />
-              이대로 결제를 진행하시겠습니까?
-            </p>
+  const handleYes = () => {
+    alert("오지치즈 토스트~");
+    setStep(1);
+    setInputValue("");
+    setNoPos({});
+  };
 
-            <div className="btn-group">
-              <button className="btn-primary" onClick={handleYes}>
-                네, 승인합니다
+  useEffect(() => {
+    if (step === 2 && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [step]);
+
+  return (
+    <div className="main-wrapper">
+      <div className="background-effect"></div>
+
+      {step === 1 ? (
+        <div className="hero-section">
+          <div className="floating-icon">✉️</div>
+          <h1 className="main-title">PRIVATE MESSAGE</h1>
+          <p className="sub-title">
+            당신에게만 도착한 일급 비밀 문서가 있습니다.
+          </p>
+          <button className="neon-btn" onClick={() => setStep(2)}>
+            문서 열람하기
+          </button>
+        </div>
+      ) : (
+        <div className="full-screen-alert">
+          <div className="alert-header">
+            <span className="blink">●</span> EMERGENCY REPORT
+          </div>
+
+          <div className="content-inner">
+            <h2 className="price-tag">청구 금액: 1,000,000 KRW</h2>
+            <p className="desc">결제 대상: 성훈 (The Handsome King)</p>
+
+            <div className="input-container">
+              <label>송금 사유를 정직하게 입력하세요:</label>
+              <textarea
+                ref={inputRef}
+                className="truth-textarea"
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="여기에 타이핑을 시작하세요..."
+                autoComplete="off"
+              />
+            </div>
+
+            <div className="action-area">
+              <button
+                className="confirm-btn"
+                onClick={handleYes}
+                disabled={inputValue.length < 10}>
+                기쁜 마음으로 결제
               </button>
               <button
-                className="btn-secondary"
-                onMouseEnter={handleNoHover} // 마우스가 닿기 전 반응
+                className="escape-btn"
+                onMouseEnter={handleNoHover}
                 style={noPos}>
-                아니요
+                결제 거부
               </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
