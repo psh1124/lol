@@ -1,30 +1,34 @@
+/* 기본 초기화 */
 :root {
-  --primary-neon: #00ff41; /* 매트릭스 그린 */
-  --error-neon: #ff003c; /* 강렬한 레드 */
-  --bg-black: #0a0a0a;
-  --text-white: #ffffff;
+  --primary-neon: #00ff41; /* 매트릭스/터미널 그린 */
+  --error-neon: #ff003c; /* 경고 레드 */
+  --bg-black: #050505;
+  --glass-bg: rgba(15, 15, 15, 0.9);
 }
 
 body,
 html {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* 스크롤 방지 */
-  background: var(--bg-black);
-  font-family: "Courier New", Courier, monospace;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* 스크롤 절대 금지 */
+  background-color: var(--bg-black);
+  font-family: "Courier New", Courier, monospace; /* 터미널 느낌 */
 }
 
+/* 전체 배경 및 그리드 효과 */
 .main-wrapper {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--text-white);
+  color: white;
   position: relative;
+  background: radial-gradient(circle, #111 0%, #050505 100%);
 }
 
-/* 배경 그리드 효과 */
 .background-effect {
   position: absolute;
   top: 0;
@@ -32,110 +36,200 @@ html {
   width: 100%;
   height: 100%;
   background-image:
-    linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  z-index: -1;
+    linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 1;
 }
 
-/* 첫 화면: 신비로운 느낌 */
-.hero-section {
-  text-align: center;
-  animation: fadeIn 1.5s ease;
-}
-
-.main-title {
-  font-size: 4rem;
-  letter-spacing: 10px;
-  margin: 20px 0;
-  text-shadow: 0 0 20px var(--primary-neon);
-}
-
-.neon-btn {
-  background: transparent;
-  color: var(--primary-neon);
-  border: 2px solid var(--primary-neon);
-  padding: 15px 40px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  box-shadow: 0 0 10px var(--primary-neon);
-  transition: 0.3s;
-}
-
-.neon-btn:hover {
-  background: var(--primary-neon);
-  color: black;
-  box-shadow: 0 0 40px var(--primary-neon);
-}
-
-/* 두 번째 화면: 경고 느낌 */
+/* 메인 카드 레이아웃 */
+.hero-section,
 .full-screen-alert {
+  position: relative;
+  z-index: 10;
   width: 90%;
-  max-width: 1000px;
-  background: rgba(20, 20, 20, 0.95);
-  border: 5px solid var(--error-neon);
-  padding: 40px;
-  box-shadow: 0 0 50px rgba(255, 0, 60, 0.3);
+  max-width: 800px;
+  padding: 60px;
+  border: 2px solid var(--primary-neon);
+  background: var(--glass-bg);
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+  text-align: center;
+  animation: fadeIn 0.8s ease-out;
 }
 
-.alert-header {
-  font-weight: bold;
-  color: var(--error-neon);
-  font-size: 1.2rem;
+.full-screen-alert {
+  border-color: var(--error-neon);
+  box-shadow: 0 0 40px rgba(255, 0, 60, 0.2);
+}
+
+/* 텍스트 스타일 */
+.main-title {
+  font-size: clamp(2rem, 8vw, 4rem);
+  letter-spacing: 8px;
+  color: var(--primary-neon);
+  text-shadow: 0 0 15px var(--primary-neon);
   margin-bottom: 30px;
 }
 
-.blink {
-  animation: blinker 1s linear infinite;
+.price-tag {
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  color: var(--error-neon);
+  margin: 20px 0;
+  font-weight: bold;
 }
 
-.price-tag {
-  font-size: 3.5rem;
+.alert-header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 0.9rem;
   color: var(--error-neon);
-  margin-bottom: 10px;
+}
+
+/* 입력창 (Textarea) */
+.input-container {
+  margin: 30px 0;
+  text-align: left;
 }
 
 .truth-textarea {
   width: 100%;
   height: 120px;
-  background: #1a1a1a;
+  background: #000;
   border: 1px solid var(--primary-neon);
   color: var(--primary-neon);
   padding: 15px;
   font-size: 1.2rem;
-  margin-top: 15px;
+  margin-top: 10px;
+  outline: none;
   resize: none;
   box-sizing: border-box;
 }
 
+/* 버튼 세트 */
 .action-area {
-  margin-top: 30px;
   display: flex;
   gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.neon-btn,
+.confirm-btn,
+.escape-btn {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+.neon-btn {
+  background: transparent;
+  border: 2px solid var(--primary-neon);
+  color: var(--primary-neon);
+}
+
+.neon-btn:hover {
+  background: var(--primary-neon);
+  color: black;
+  box-shadow: 0 0 30px var(--primary-neon);
 }
 
 .confirm-btn {
   background: var(--primary-neon);
   color: black;
-  border: none;
-  padding: 20px 40px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 .confirm-btn:disabled {
-  background: #333;
-  color: #666;
+  background: #222;
+  color: #555;
+  cursor: not-allowed;
 }
 
 .escape-btn {
-  background: var(--error-neon);
-  color: white;
-  padding: 20px 40px;
-  border: none;
-  font-weight: bold;
-  font-size: 1.2rem;
+  background: #333;
+  color: #999;
+}
+
+/* 로딩 오버레이 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.98);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-box {
+  width: 80%;
+  max-width: 500px;
+}
+
+.status-msg {
+  color: var(--primary-neon);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.error-text {
+  color: var(--error-neon) !important;
+  text-shadow: 0 0 10px var(--error-neon);
+  animation: shake 0.1s infinite;
+}
+
+.progress-container {
+  width: 100%;
+  height: 12px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 0.1s linear;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(2px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 2px);
+  }
+  75% {
+    transform: translate(2px, 2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.blink {
+  animation: blinker 1s linear infinite;
 }
 
 @keyframes blinker {
@@ -144,13 +238,58 @@ html {
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #111;
+  border-top: 4px solid var(--primary-neon);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
   to {
-    opacity: 1;
-    transform: translateY(0);
+    transform: rotate(360deg);
+  }
+}
+
+/* 거부 버튼 빨간색 스타일 */
+.escape-btn.alert-red {
+  background: var(--error-neon) !important;
+  color: white !important;
+  border: none;
+  box-shadow: 0 0 15px var(--error-neon);
+  cursor: pointer;
+}
+
+.escape-btn.alert-red:hover {
+  background: #ff2e63 !important;
+  box-shadow: 0 0 30px var(--error-neon);
+  transform: scale(1.05);
+}
+
+/* 로딩바가 실패했을 때 텍스트가 흔들리는 효과 (선택사항) */
+.error-text {
+  color: #ff003c !important;
+  text-shadow: 0 0 10px #ff003c;
+  animation: shake 0.1s infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(2px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 2px);
+  }
+  75% {
+    transform: translate(2px, 2px);
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }
